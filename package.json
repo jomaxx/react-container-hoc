@@ -1,7 +1,7 @@
 {
   "name": "react-container-hoc",
   "version": "0.0.1",
-  "description": "",
+  "description": "## Install ``` npm i react-container-hoc --save ```",
   "main": "lib/container.js",
   "scripts": {
     "build": "rollup -c",
@@ -10,7 +10,7 @@
     "prepublish": "rm -r lib && npm run build",
     "lint": "eslint ."
   },
-  "author": "",
+  "author": "Jo Maxx Blake <jo.maxx.blake@gmail.com>",
   "license": "MIT",
   "files": [
     "lib"
@@ -31,5 +31,13 @@
   "dependencies": {
     "hoist-non-react-statics": "^1.2.0",
     "react": "^15.3.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jomaxx/react-container-hoc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jomaxx/react-container-hoc/issues"
+  },
+  "homepage": "https://github.com/jomaxx/react-container-hoc#readme"
 }
