@@ -1,0 +1,34 @@
+{
+  "name": "react-container-hoc",
+  "version": "0.0.0",
+  "description": "",
+  "main": "lib/container.js",
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c -w",
+    "test": "mocha",
+    "lint": "eslint ."
+  },
+  "author": "",
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "devDependencies": {
+    "babel-preset-es2015-rollup": "^1.2.0",
+    "babel-preset-react": "^6.11.1",
+    "eslint": "^3.4.0",
+    "eslint-config-airbnb": "^10.0.1",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-jsx-a11y": "^2.2.1",
+    "eslint-plugin-react": "^6.2.0",
+    "mocha": "^3.0.2",
+    "rollup": "^0.34.7",
+    "rollup-plugin-babel": "^2.6.1",
+    "rollup-watch": "^2.5.0"
+  },
+  "dependencies": {
+    "hoist-non-react-statics": "^1.2.0",
+    "react": "^15.3.1"
+  }
+}

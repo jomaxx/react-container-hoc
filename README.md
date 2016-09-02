@@ -1,1 +1,1 @@
-# react-container
+# react-container-hoc
