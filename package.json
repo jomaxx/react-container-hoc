@@ -1,12 +1,13 @@
 {
   "name": "react-container-hoc",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "lib/container.js",
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c -w",
     "test": "mocha",
+    "prepublish": "rm -r lib && npm run build",
     "lint": "eslint ."
   },
   "author": "",
