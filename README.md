@@ -11,6 +11,7 @@ npm i react-container-hoc --save
 
 ```js
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import container from 'react-container-hoc';
 
 function MyButton(props) {
