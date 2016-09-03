@@ -3,24 +3,22 @@ import hoistNonReactStatic from 'hoist-non-react-statics';
 
 function noop() {}
 
-const defaults = {
-  mapStateToProps(state) {
-    return { state };
-  },
+function mapStateToPropsDefault(state) {
+  return { state };
+}
 
-  mapSetStateToProps(setState) {
-    return { setState };
-  },
+function mapSetStateToPropsDefault(setState) {
+  return { setState };
+}
 
-  mergeProps(props, stateProps, setStateProps) {
-    return Object.assign({}, props, stateProps, setStateProps);
-  },
-};
+function mergePropsDefault(props, stateProps, setStateProps) {
+  return Object.assign({}, props, stateProps, setStateProps);
+}
 
-export default function container(
-  mapStateToProps = defaults.mapStateToProps,
-  mapSetStateToProps = defaults.mapSetStateToProps,
-  mergeProps = defaults.mergeProps,
+function createContainerFactory(
+  mapStateToProps = mapStateToPropsDefault,
+  mapSetStateToProps = mapSetStateToPropsDefault,
+  mergeProps = mergePropsDefault,
   {
     componentWillMount,
     componentDidMount,
@@ -39,16 +37,35 @@ export default function container(
         this.setState = this.setState.bind(this);
         this.stateProps = mapStateToProps(this.state, this.props);
         this.setStateProps = mapSetStateToProps(this.setState, this.props);
-      }
 
-      componentWillReceiveProps(nextProps) {
-        this.setStateProps = mapSetStateToProps(this.setState, nextProps);
-        componentWillReceiveProps.call(this, nextProps);
-      }
+        // lifecycles
+        this.componentWillMount = componentWillMount;
+        this.componentDidMount = componentDidMount;
 
-      componentWillUpdate(nextProps, nextState) {
-        this.stateProps = mapStateToProps(nextState, nextProps);
-        componentWillUpdate.call(this, nextProps, nextState);
+        this.componentWillReceiveProps = (...args) => {
+          const [nextProps] = args;
+
+          if (mapSetStateToProps.length > 1) {
+            this.setStateProps = mapSetStateToProps(this.setState, nextProps);
+          }
+
+          return componentWillReceiveProps.apply(this, args);
+        };
+
+        this.shouldComponentUpdate = shouldComponentUpdate;
+
+        this.componentWillUpdate = (...args) => {
+          const [nextProps, nextState] = args;
+
+          if (nextState !== this.state || mapStateToProps.length > 1) {
+            this.stateProps = mapStateToProps(nextState, nextProps);
+          }
+
+          return componentWillUpdate.apply(this, args);
+        };
+
+        this.componentDidUpdate = componentDidUpdate;
+        this.componentWillUnmount = componentWillUnmount;
       }
 
       render() {
@@ -64,12 +81,6 @@ export default function container(
       }
     }
 
-    Container.prototype.componentWillMount = componentWillMount;
-    Container.prototype.componentDidMount = componentDidMount;
-    Container.prototype.shouldComponentUpdate = shouldComponentUpdate;
-    Container.prototype.componentDidUpdate = componentDidUpdate;
-    Container.prototype.componentWillUnmount = componentWillUnmount;
-
     Container.displayName = `container(${
       WrappedComponent.displayName
       || WrappedComponent.name
@@ -82,4 +93,15 @@ export default function container(
 
     return Container;
   };
+}
+
+export default function container(...args) {
+  if (args.length < 4 && typeof args[args.length - 1] === 'object') {
+    return createContainerFactory.apply(this, Object.assign(
+      [undefined, undefined, undefined, args.pop()],
+      args
+    ));
+  }
+
+  return createContainerFactory.apply(this, args);
 }

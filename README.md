@@ -1,11 +1,13 @@
 # react-container-hoc
 
+Higher order component for managing component state. The ContainerComponent passes state and callbacks (for mutating state) to a WrappedComponent via props. This allows for a separation of concerns where state is managed by the container and dom layout is handled by a stateless functional component.
+
 ## Install
 ```
 npm i react-container-hoc --save
 ```
 
-## Basic Usage
+## Usage
 
 ```js
 import React from 'react';
@@ -23,11 +25,13 @@ function MyButton(props) {
   );
 }
 
+// default mapStateToProps returns { state }
 const mapStateToProps = (state) => {
   const { isActive = false } = state;
   return { isActive };
 };
 
+// default mapSetStateToProps returns { setState }
 const mapSetStateToProps = (setState) => ({
   onClick() {
     setState((state) => {
@@ -46,12 +50,16 @@ export default container(
 
 ## API
 
-### container([mapStateToProps,] [mapSetStateToProps,] [mergeProps,] [lifecycles]) => containerFactory
+### container([mapStateToProps], [mapSetStateToProps], [mergeProps], [lifecycles])
 
-#### mapStateToProps(state, props) => stateProps
+```js
 
-#### mapSetStateToProps(setState, props) => setStateProps
+```
 
-#### mergeProps(props, stateProps, setStateProps) => wrappedComponentProps
+#### `mapStateToProps(state, props)`
 
-### containerFactory(WrappedComponent) => ContainerComponent
+#### `mapSetStateToProps(setState, props)`
+
+#### `mergeProps(props, stateProps, setStateProps)`
+
+#### `lifecycles`

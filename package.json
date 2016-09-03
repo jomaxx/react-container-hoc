@@ -1,13 +1,12 @@
 {
   "name": "react-container-hoc",
   "version": "0.0.1",
-  "description": "## Install ``` npm i react-container-hoc --save ```",
   "main": "lib/container.js",
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c -w",
-    "test": "mocha",
-    "prepublish": "rm -r lib && npm run build",
+    "test": "mocha --require babel-register",
+    "prepublish": "npm test && rm -r lib && npm run build",
     "lint": "eslint ."
   },
   "author": "Jo Maxx Blake <jo.maxx.blake@gmail.com>",
@@ -16,17 +15,24 @@
     "lib"
   ],
   "devDependencies": {
+    "babel-preset-es2015": "^6.14.0",
     "babel-preset-es2015-rollup": "^1.2.0",
     "babel-preset-react": "^6.11.1",
+    "babel-register": "^6.14.0",
+    "enzyme": "^2.4.1",
     "eslint": "^3.4.0",
     "eslint-config-airbnb": "^10.0.1",
     "eslint-plugin-import": "^1.14.0",
     "eslint-plugin-jsx-a11y": "^2.2.1",
     "eslint-plugin-react": "^6.2.0",
+    "jsdom": "^9.4.5",
     "mocha": "^3.0.2",
+    "react-addons-test-utils": "^15.3.1",
+    "react-dom": "^15.3.1",
     "rollup": "^0.34.7",
     "rollup-plugin-babel": "^2.6.1",
-    "rollup-watch": "^2.5.0"
+    "rollup-watch": "^2.5.0",
+    "sinon": "^1.17.5"
   },
   "dependencies": {
     "hoist-non-react-statics": "^1.2.0",
@@ -39,5 +45,9 @@
   "bugs": {
     "url": "https://github.com/jomaxx/react-container-hoc/issues"
   },
-  "homepage": "https://github.com/jomaxx/react-container-hoc#readme"
+  "homepage": "https://github.com/jomaxx/react-container-hoc#readme",
+  "directories": {
+    "test": "test"
+  },
+  "description": "Higher order component for managing component state. The ContainerComponent passes state and callbacks (for mutating state) to a WrappedComponent via props. This allows for a separation of concerns where state is managed by the container and dom layout is handled by a stateless functional component."
 }
