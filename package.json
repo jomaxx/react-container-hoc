@@ -49,5 +49,5 @@
   "directories": {
     "test": "test"
   },
-  "description": "Higher order component for managing component state. The ContainerComponent passes state and callbacks (for mutating state) to a WrappedComponent via props. This allows for a separation of concerns where state is managed by the container and dom layout is handled by a stateless functional component."
+  "description": "Higher order component for managing component state. The ContainerComponent passes state and callbacks for mutating state to a WrappedComponent via props. This allows for a separation of concerns where state is managed by the container and dom layout is handled by a stateless functional component."
 }
